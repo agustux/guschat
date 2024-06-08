@@ -10,8 +10,6 @@ class MessagesController < ApplicationController
   end
 
   def create
-    logger.info "HELLO"
-    logger.info params
     @message = Message.new(message_params)
 
     if @message.save
