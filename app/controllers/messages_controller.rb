@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   http_basic_authenticate_with name: "gus", password: "gus123"
-  helper_method :prev_day
+  helper_method :next_week, :next_day, :prev_day, :prev_week
 
   def index
     logger.info "date: #{index_date}"
@@ -26,6 +26,18 @@ class MessagesController < ApplicationController
 
     def prev_day
       index_date - 1.day
+    end
+
+    def prev_week
+      index_date - 7.day
+    end
+
+    def next_day
+      index_date + 1.day
+    end
+
+    def next_week
+      index_date + 7.day
     end
 
     def index_date

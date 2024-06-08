@@ -12,4 +12,8 @@
 <%= link_to "New Message", new_message_path %>
 <br>
 <%= link_to "today", root_path %>
+
+<%= link_to "next_week", root_path(:date => next_week) %>
+<%= link_to "next_day", root_path(:date => next_day) %>
 <%= link_to "prev_day", root_path(:date => prev_day) %>
+<%= link_to "prev_week", root_path(:date => prev_week) %>
