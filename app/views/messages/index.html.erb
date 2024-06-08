@@ -4,8 +4,12 @@
   <% @messages.each do |message| %>
     <li>
       <%= message.body %>
+      <%= message.created_at %>
     </li>
   <% end %>
 </ul>
 
 <%= link_to "New Message", new_message_path %>
+<br>
+<%= link_to "today", root_path %>
+<%= link_to "prev_day", root_path(:date => prev_day) %>
