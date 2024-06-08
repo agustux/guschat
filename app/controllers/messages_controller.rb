@@ -1,6 +1,24 @@
 class MessagesController < ApplicationController
-  http_basic_authenticate_with name: "gus", password: "gus123"
   helper_method :next_week, :next_day, :prev_day, :prev_week
+
+  before_action :authenticate
+
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      @user = username
+      logger.info "user: #{@user}"
+      case username
+      when 'gus'
+        password == 'gus123'
+      when 'papa'
+        password == 'papa123'
+      when 'mama'
+        password == 'mama123'
+      else
+        false
+      end
+    end
+  end
 
   def index
     logger.info "date: #{index_date}"
