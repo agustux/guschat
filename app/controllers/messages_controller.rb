@@ -5,8 +5,8 @@ class MessagesController < ApplicationController
 
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|
-      @user = username
-      logger.info "user: #{@user}"
+      @username = username
+      logger.info "username: #{@username}"
       case username
       when 'gus'
         password == 'gus123'
@@ -31,7 +31,10 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(message_params)
+    args = message_params
+    args['username'] = @username
+    logger.info "creating message: #{args}"
+    @message = Message.new(args)
 
     if @message.save
       redirect_to root_path

@@ -3,6 +3,7 @@
 <ul>
   <% @messages.each do |message| %>
     <li>
+      <%= message.username %>
       <%= message.body %>
       <%= message.created_at %>
     </li>
