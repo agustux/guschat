@@ -5,7 +5,7 @@
     <li>
       <%= message.username %>
       <%= message.body %>
-      <%= message.created_at %>
+      <%= message.created_at.in_time_zone(@timezone) %>
     </li>
   <% end %>
 </ul>
@@ -18,3 +18,11 @@
 <%= link_to "next_day", root_path(:date => next_day) %>
 <%= link_to "prev_day", root_path(:date => prev_day) %>
 <%= link_to "prev_week", root_path(:date => prev_week) %>
+
+<script>
+function set_time_zone_offset() {
+  var current_time = new Date();
+  document.cookie = 'time_zone='+current_time.getTimezoneOffset();
+}
+set_time_zone_offset();
+</script>

@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   helper_method :next_week, :next_day, :prev_day, :prev_week
 
-  before_action :authenticate
+  before_action :authenticate, :timezone
 
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|
@@ -18,6 +18,12 @@ class MessagesController < ApplicationController
         false
       end
     end
+  end
+
+  def timezone
+    min = request.cookies["time_zone"].to_i
+    @timezone = ActiveSupport::TimeZone[-min.minutes]
+    logger.info "timezone: #{@timezone}"
   end
 
   def index
@@ -65,10 +71,11 @@ class MessagesController < ApplicationController
       begin
         index_params = params.permit(:date)
         if index_params[:date]
-          Date.parse index_params[:date]
+          d = Date.parse index_params[:date]
         else
-          Date.today
+          d = Date.today
         end
+        d.in_time_zone(@timezone)
       rescue Date::Error => e
         raise "invalid date"
       end
