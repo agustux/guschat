@@ -1,0 +1,61 @@
+- hosts: localhost
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+    rbenv_root: "{{ lookup('env', '(rbenv root)'' }}"
+
+  tasks:
+  - name: installing dependencies
+    ansible.builtin.apt:
+      name: "{{ item.name }}"
+      state: present
+    loop:
+      - { name: autoconf }
+      - { name: patch }
+      - { name: build-essential }
+      - { name: rustc }
+      - { name: libssl-dev }
+      - { name: libyaml-dev }
+      - { name: libreadline6-dev }
+      - { name: zlib1g-dev }
+      - { name: libgmp-dev }
+      - { name: libncurses5-dev }
+      - { name: libffi-dev }
+      - { name: libgdbm6 }
+      - { name: libgdbm-dev }
+      - { name: libdb-dev }
+      - { name: uuid-dev }
+      - { name: sqlite3 }
+    become: true
+
+  - name: cloning rbenv repository
+    ansible.builtin.git:
+      clone: true
+      dest: "{{ home }}/.rbenv"
+      repo: https://github.com/rbenv/rbenv.git
+
+  - name: bootstrapping rbenv
+    ansible.builtin.shell: ~/.rbenv/bin/rbenv init
+
+  - name: cloning ruby build
+    ansible.builtin.git:
+      clone: true
+      dest: "{{ rbenv_root }}/plugins/ruby-build"
+      repo: https://github.com/rbenv/ruby-build.git
+
+  - name: installing Ruby 3.3.3
+    ansible.builtin.shell: rbenv install 3.3.3
+
+  - name: fixing .ruby-version
+    ansible.builtin.shell:
+      cmd: rbenv local 3.3.3
+      chdir: guschat/
+
+  - name: bundle install
+    ansible.builtin.shell:
+      cmd: bundle install
+      chdir: guschat/
+
+  - name: migrating
+    ansible.builtin.shell:
+      cmd: bin/rails db:migrate
+      chdir: guschat/

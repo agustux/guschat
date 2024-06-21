@@ -47,3 +47,17 @@ subl app/views/messages/new.html.erb
 bin/rails server
 
 ```
+
+Bootstrap for Debian:
+```
+apt-get update
+apt-get upgrade -y
+apt install python3.10-venv -y
+apt install curl -y
+apt install sudo git -y
+python3 -m venv ansible_venv
+./ansible_venv/bin/python3 -m pip install --upgrade pip
+./ansible_venv/bin/python3 -m pip install ansible-core
+git clone https://github.com/agustux/guschat.git
+ANSIBLE_CONFIG=guschat/ansible/ansible.cfg ./ansible_venv/bin/ansible-playbook guschat/ansible/rails-installation.yml
+```
