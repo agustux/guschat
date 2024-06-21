@@ -23,7 +23,7 @@ apt-get upgrade -y
 # ANSIBLE_CONFIG=guschat/ansible/ansible.cfg ./ansible_venv/bin/ansible-playbook guschat/ansible/rails-installation.yml
 
 # only if the user was not created during debian installation:
-adduser --ingroup sudo gus # (agus123)
+adduser --ingroup sudo gus # (gus123)
 
 # if the user was created during debian installation:
 sudo usermod -aG sudo gus

@@ -14,18 +14,18 @@
       - { name: sqlite3 }
     become: true
 
-  # - name: cloning app git repo
-  #   ansible.builtin.git:
-  #     clone: true
-  #     dest: "{{ rbenv_root }}/plugins/ruby-build"
-  #     repo: https://github.com/rbenv/ruby-build.git
+  - name: cloning app git repo
+    ansible.builtin.git:
+      clone: true
+      dest: "{{ home }}"
+      repo: https://github.com/agustux/guschat.git
 
-  # - name: bundle install
-  #   ansible.builtin.shell:
-  #     cmd: bundle install
-  #     chdir: guschat/
+  - name: bundle install
+    ansible.builtin.shell:
+      cmd: bundle install
+      chdir: guschat/
 
-  # - name: migrating
-  #   ansible.builtin.shell:
-  #     cmd: bin/rails db:migrate
-  #     chdir: guschat/
+  - name: migrating
+    ansible.builtin.shell:
+      cmd: bin/rails db:migrate
+      chdir: guschat/
