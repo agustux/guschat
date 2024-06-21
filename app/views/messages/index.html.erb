@@ -1,12 +1,13 @@
 <h1>Messages</h1>
 
 <ul>
-  <% @messages.each do |message| %>
-    <li>
-      <%= message.username %>
-      <%= message.body %>
-      <%= message.created_at.in_time_zone(@timezone) %>
-    </li>
+  <% @messages.each_with_index do |message, i| %>
+    <div style="background-color: #fafaff;">
+      <p><%= message.body %></p>
+      <small><pre>
+        <%= message.created_at.in_time_zone(@timezone) %> <%= message.username %>
+     </pre></small>
+   </div>
   <% end %>
 </ul>
 
