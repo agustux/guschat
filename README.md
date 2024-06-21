@@ -24,8 +24,9 @@ sqlite3 --version
 installing rails
 ```
 cd guschat/
-gem install rails
+bundle install
 rails --version
+bin/rails db:migrate
 ```
 
 How I created the project:
