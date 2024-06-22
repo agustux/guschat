@@ -1,9 +1,6 @@
 - hosts: all
-  vars:
-    home: "{{ lookup('env', 'HOME') }}"
-    rbenv_root: "{{ lookup('env', '(rbenv root)'' }}"
-
   tasks:
+
   - name: installing app dependencies
     ansible.builtin.apt:
       name: "{{ item.name }}"
@@ -34,7 +31,7 @@
   - name: cloning app git repo
     ansible.builtin.git:
       clone: true
-      dest: "{{ home }}/guschat"
+      dest: "guschat"
       repo: https://github.com/agustux/guschat.git
 
   - name: gem install bundler
