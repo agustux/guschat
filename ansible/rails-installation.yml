@@ -9,21 +9,41 @@
       name: "{{ item.name }}"
       state: present
     loop:
+      - { name: build-essential }
+      - { name: curl }
       - { name: git }
-      - { name: ruby }
+      - { name: git-core }
+      - { name: libcurl4-openssl-dev }
+      - { name: libffi-dev }
+      - { name: libreadline-dev }
+      - { name: libsqlite3-dev }
+      - { name: libssl-dev }
+      - { name: libxml2-dev }
+      - { name: libxslt1-dev }
+      - { name: libyaml-dev }
+      - { name: nodejs }
+      - { name: ruby-full }
+      - { name: software-properties-common }
       - { name: sqlite3 }
+      - { name: yarn }
+      - { name: zlib1g-dev }
     become: true
 
   - name: cloning app git repo
     ansible.builtin.git:
       clone: true
-      dest: "{{ home }}"
+      dest: "{{ home }}/guschat"
       repo: https://github.com/agustux/guschat.git
+
+  - name: gem install bundler
+    ansible.builtin.shell: gem install bundler
+    become: true
 
   - name: bundle install
     ansible.builtin.shell:
       cmd: bundle install
       chdir: guschat/
+    become: true
 
   - name: migrating
     ansible.builtin.shell:
