@@ -28,6 +28,8 @@
       - { name: yarn }
       - { name: zlib1g-dev }
     become: true
+    tags:
+      - apt
 
   - name: cloning app git repo
     ansible.builtin.git:
@@ -49,3 +51,20 @@
     ansible.builtin.shell:
       cmd: bin/rails db:migrate
       chdir: guschat/
+
+  - name: copy systemd file
+    ansible.builtin.copy:
+      src: files/guschat.service
+      dest: /lib/systemd/system/
+      owner: root
+      group: root
+      mode: '0644'
+    become: true
+
+  - name: enable service guschat
+    ansible.builtin.systemd_service:
+      name: guschat
+      enabled: true
+      daemon_reload: true
+      state: restarted
+    become: true

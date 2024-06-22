@@ -1,0 +1,16 @@
+[Unit]
+Description=guschat
+Requires=network.target
+ 
+[Service]
+Type=simple
+User=gus
+Group=gus
+WorkingDirectory=/home/gus/guschat
+ExecStart=/home/gus/guschat/bin/rails server --environment=development --binding=0.0.0.0 --port=8080
+TimeoutSec=30
+RestartSec=15s
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
