@@ -28,26 +28,42 @@
     tags:
       - apt
 
+  - name: gem install bundler
+    ansible.builtin.shell: gem install bundler
+    become: true
+
+  - name: create the rails user
+    ansible.builtin.user:
+      name: rails
+    become: true
+
   - name: cloning app git repo
     ansible.builtin.git:
       clone: true
-      dest: "guschat"
+      dest: "/opt/guschat"
       repo: https://github.com/agustux/guschat.git
-
-  - name: gem install bundler
-    ansible.builtin.shell: gem install bundler
     become: true
 
   - name: bundle install
     ansible.builtin.shell:
       cmd: bundle install
-      chdir: guschat/
+      chdir: /opt/guschat
     become: true
 
   - name: migrating
     ansible.builtin.shell:
       cmd: bin/rails db:migrate
-      chdir: guschat/
+      chdir: /opt/guschat
+    become: true
+
+  - name: make rails owner of /opt/guschat/storage/
+    ansible.builtin.file:
+      path: /opt/guschat/storage
+      state: directory
+      recurse: yes
+      owner: rails
+      group: rails
+    become: true
 
   - name: copy systemd file
     ansible.builtin.copy:
