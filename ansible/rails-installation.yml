@@ -1,14 +1,13 @@
 - hosts: all
   tasks:
 
-  - name: installing app dependencies
+  - name: installing rails dependencies
     ansible.builtin.apt:
       name: "{{ item.name }}"
       state: present
     loop:
       - { name: build-essential }
       - { name: curl }
-      - { name: git }
       - { name: git-core }
       - { name: libcurl4-openssl-dev }
       - { name: libffi-dev }
@@ -36,6 +35,14 @@
     ansible.builtin.user:
       name: rails
     become: true
+
+  - name: install git
+    ansible.builtin.apt:
+      name: git
+      state: present
+    become: true
+    tags:
+      - apt
 
   - name: cloning app git repo
     ansible.builtin.git:
@@ -65,6 +72,15 @@
       group: rails
     become: true
 
+  - name: make rails owner of /opt/guschat/tmp/
+    ansible.builtin.file:
+      path: /opt/guschat/tmp
+      state: directory
+      recurse: yes
+      owner: rails
+      group: rails
+    become: true
+
   - name: copy systemd file
     ansible.builtin.copy:
       src: files/guschat.service
@@ -79,5 +95,31 @@
       name: guschat
       enabled: true
       daemon_reload: true
+      state: restarted
+    become: true
+
+  - name: install nginx
+    ansible.builtin.apt:
+      name: nginx
+      state: present
+    become: true
+    tags:
+      - apt
+
+  - name: deleting nginx default site symlink
+    ansible.builtin.file:
+      path: /etc/nginx/sites-enabled/default
+      state: absent
+    become: true
+
+  - name: deploy nginx guschat config file
+    ansible.builtin.copy:
+      src: files/guschat-nginx.conf
+      dest: /etc/nginx/conf.d/
+    become: true
+
+  - name: restart nginx
+    ansible.builtin.systemd_service:
+      name: nginx
       state: restarted
     become: true
