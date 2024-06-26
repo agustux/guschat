@@ -29,14 +29,15 @@ rails --version
 bin/rails db:migrate
 ```
 
-How I created the project:
-(don't need to run these commands again, just dcoumenting in case I want to upgrade to another rails and start from scratch)
+# How I created the project
+Note: don't need to run these commands again, just dcoumenting in case I want to upgrade to another rails and start from scratch
 ```
 rails new guschat
 cd guschat
 bin/rails generate controller Messages index --skip-routes
 bin/rails generate model Message body:text
 bin/rails generate migration AddUsernameToMessages username:string
+bin/rails generate model User username:string password_digest:string
 bin/rails db:migrate
 
 subl config/routes.rb
@@ -46,4 +47,13 @@ subl app/views/messages/new.html.erb
 
 bin/rails server
 
+```
+
+# Users management
+
+```
+bin/rails console
+user = User.new(username: "foo")
+user.password='bar'
+user.save
 ```

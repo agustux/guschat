@@ -7,16 +7,7 @@ class MessagesController < ApplicationController
     authenticate_or_request_with_http_basic do |username, password|
       @username = username
       logger.info "username: #{@username}"
-      case username
-      when 'gus'
-        password == 'gus123'
-      when 'papa'
-        password == 'papa123'
-      when 'mama'
-        password == 'mama123'
-      else
-        false
-      end
+      User.find_by(username: @username)&.authenticate(password)
     end
   end
 
