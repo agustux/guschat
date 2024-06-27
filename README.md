@@ -33,11 +33,11 @@ bin/rails db:migrate
 ```
 # on the debian host
 
-sudo mkdir /etc/nginx/ssl-certs
+sudo mkdir -p /etc/nginx/ssl-certs
 sudo openssl req -x509 -newkey rsa:4096 \
   -keyout /etc/nginx/ssl-certs/guschat.key \
   -out /etc/nginx/ssl-certs/guschat.crt \
-  -sha256 -days 3650 -nodes -subj "/C=US/ST=Texas/L=Gus/O=Gus/OU=Gus/CN=debian"
+  -sha256 -days 3650 -nodes -subj "/C=US/ST=Texas/L=Gus/O=Gus/OU=Gus/CN=findonlinecolleges"
 
 sudo chmod -R 750 /etc/nginx/ssl-certs
 sudo chown -R root:www-data /etc/nginx/ssl-certs
