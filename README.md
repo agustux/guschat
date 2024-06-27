@@ -29,6 +29,38 @@ rails --version
 bin/rails db:migrate
 ```
 
+# Run BEFORE ANSIBLE to Create Self-Signed TLS Certificate
+```
+# on the debian host
+
+sudo mkdir /etc/nginx/ssl-certs
+sudo openssl req -x509 -newkey rsa:4096 \
+  -keyout /etc/nginx/ssl-certs/guschat.key \
+  -out /etc/nginx/ssl-certs/guschat.crt \
+  -sha256 -days 3650 -nodes -subj "/C=US/ST=Texas/L=Gus/O=Gus/OU=Gus/CN=debian"
+
+sudo chmod -R 750 /etc/nginx/ssl-certs
+sudo chown -R root:www-data /etc/nginx/ssl-certs
+
+```
+
+# Rails Users Management
+
+```
+# on laptop:
+bin/rails console
+# on debian:
+sudo -u rails /opt/guschat/bin/rails console
+
+user = User.new(username: "foo")
+user.password = 'bar'
+user.save
+
+u = User.find_by(username: 'foo')
+u.password = 'foobar'
+u.save
+```
+
 # How I created the project
 Note: don't need to run these commands again, just dcoumenting in case I want to upgrade to another rails and start from scratch
 ```
@@ -46,37 +78,5 @@ subl app/views/messages/index.html.erb
 subl app/views/messages/new.html.erb
 
 bin/rails server
-
-```
-
-# Users management
-
-```
-# on laptop:
-bin/rails console
-# on debian:
-sudo -u rails /opt/guschat/bin/rails console
-
-user = User.new(username: "foo")
-user.password = 'bar'
-user.save
-
-u = User.find_by(username: 'foo')
-u.password = 'foobar'
-u.save
-```
-
-# Creating Self-Signed TLS Certificate
-```
-# on the debian host
-
-sudo mkdir /etc/nginx/ssl-certs
-sudo openssl req -x509 -newkey rsa:4096 \
-  -keyout /etc/nginx/ssl-certs/guschat.key \
-  -out /etc/nginx/ssl-certs/guschat.crt \
-  -sha256 -days 3650 -nodes -subj "/C=US/ST=Texas/L=Paris/O=Gus Tech Inc./OU=Gus/CN=debian"
-
-sudo chmod -R 750 /etc/nginx/ssl-certs
-sudo chown -R root:www-data /etc/nginx/ssl-certs
 
 ```

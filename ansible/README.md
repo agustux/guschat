@@ -23,12 +23,12 @@ ssh gus@192.168.122.18
 
 # run user modifications here as root
 
-# only if the user was not created during debian installation:
-adduser --ingroup sudo gus # (gus123)
-# if the user was created during debian installation:
-sudo usermod -aG sudo gus
+# to create a sudoer user with diabled password:
+sudo adduser --disabled-password --ingroup sudo gus
 
+# to remove sudo password for that user
 echo 'gus ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/gus
+
 apt install sudo -y
 ```
 
