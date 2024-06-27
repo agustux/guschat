@@ -58,8 +58,12 @@ bin/rails console
 sudo -u rails /opt/guschat/bin/rails console
 
 user = User.new(username: "foo")
-user.password='bar'
+user.password = 'bar'
 user.save
+
+u = User.find_by(username: 'foo')
+u.password = 'foobar'
+u.save
 ```
 
 # Creating Self-Signed TLS Certificate
