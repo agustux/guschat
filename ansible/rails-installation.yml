@@ -23,24 +23,20 @@
       - { name: sqlite3 }
       - { name: yarn }
       - { name: zlib1g-dev }
-    become: true
     tags:
       - apt
 
   - name: gem install bundler
     ansible.builtin.shell: gem install bundler
-    become: true
 
   - name: create the rails user
     ansible.builtin.user:
       name: rails
-    become: true
 
   - name: install git
     ansible.builtin.apt:
       name: git
       state: present
-    become: true
     tags:
       - apt
 
@@ -49,19 +45,16 @@
       clone: true
       dest: "/opt/guschat"
       repo: https://github.com/agustux/guschat.git
-    become: true
 
   - name: bundle install
     ansible.builtin.shell:
       cmd: bundle install
       chdir: /opt/guschat
-    become: true
 
   - name: migrating
     ansible.builtin.shell:
       cmd: bin/rails db:migrate
       chdir: /opt/guschat
-    become: true
 
   - name: make rails owner of /opt/guschat/storage/
     ansible.builtin.file:
@@ -70,7 +63,6 @@
       recurse: yes
       owner: rails
       group: rails
-    become: true
 
   - name: make rails owner of /opt/guschat/tmp/
     ansible.builtin.file:
@@ -79,7 +71,6 @@
       recurse: yes
       owner: rails
       group: rails
-    become: true
 
   - name: copy systemd file
     ansible.builtin.copy:
@@ -88,7 +79,6 @@
       owner: root
       group: root
       mode: '0644'
-    become: true
 
   - name: enable service guschat
     ansible.builtin.systemd_service:
@@ -96,13 +86,11 @@
       enabled: true
       daemon_reload: true
       state: restarted
-    become: true
 
   - name: install nginx
     ansible.builtin.apt:
       name: nginx
       state: present
-    become: true
     tags:
       - apt
 
@@ -110,16 +98,13 @@
     ansible.builtin.file:
       path: /etc/nginx/sites-enabled/default
       state: absent
-    become: true
 
   - name: deploy nginx guschat config file
     ansible.builtin.copy:
       src: files/guschat-nginx.conf
       dest: /etc/nginx/conf.d/
-    become: true
 
   - name: restart nginx
     ansible.builtin.systemd_service:
       name: nginx
       state: restarted
-    become: true
