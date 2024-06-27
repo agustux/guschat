@@ -52,8 +52,27 @@ bin/rails server
 # Users management
 
 ```
+# on laptop:
 bin/rails console
+# on debian:
+sudo -u rails /opt/guschat/bin/rails console
+
 user = User.new(username: "foo")
 user.password='bar'
 user.save
+```
+
+# Creating Self-Signed TLS Certificate
+```
+# on the debian host
+
+sudo mkdir /etc/nginx/ssl-certs
+sudo openssl req -x509 -newkey rsa:4096 \
+  -keyout /etc/nginx/ssl-certs/guschat.key \
+  -out /etc/nginx/ssl-certs/guschat.crt \
+  -sha256 -days 3650 -nodes -subj "/C=US/ST=Texas/L=Paris/O=Gus Tech Inc./OU=Gus/CN=debian"
+
+sudo chmod -R 750 /etc/nginx/ssl-certs
+sudo chown -R root:www-data /etc/nginx/ssl-certs
+
 ```
