@@ -1,6 +1,6 @@
 # README
 
-installing ruby:
+installing ruby on laptop for rbenv :
 ```
 # https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
 sudo apt-get install autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
@@ -15,13 +15,13 @@ cat .ruby-version
 ruby --version
 ```
 
-installing sqlite
+installing sqlite on laptop:
 ```
 sudo apt install sqlite3
 sqlite3 --version
 ```
 
-installing rails
+installing rails on laptop:
 ```
 cd guschat/
 bundle install
