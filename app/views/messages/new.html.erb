@@ -4,6 +4,7 @@
   <div>
     <%= form.label "I say:" %><br>
     <%= form.text_area :body %>
+    <% @message.errors.full_messages_for(:body).each do |message| %>
   </div>
 
   <div>
