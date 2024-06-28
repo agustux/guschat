@@ -103,8 +103,12 @@
     ansible.builtin.copy:
       src: files/guschat-nginx.conf
       dest: /etc/nginx/conf.d/
+    tags:
+      - nginx
 
   - name: restart nginx
     ansible.builtin.systemd_service:
       name: nginx
       state: restarted
+    tags:
+      - nginx
