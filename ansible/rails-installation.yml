@@ -56,21 +56,17 @@
       cmd: bin/rails db:migrate
       chdir: /opt/guschat
 
-  - name: make rails owner of /opt/guschat/storage/
+  - name: make rails owner of writable directories
     ansible.builtin.file:
-      path: /opt/guschat/storage
+      path: "{{ item }}"
       state: directory
       recurse: yes
       owner: rails
       group: rails
-
-  - name: make rails owner of /opt/guschat/tmp/
-    ansible.builtin.file:
-      path: /opt/guschat/tmp
-      state: directory
-      recurse: yes
-      owner: rails
-      group: rails
+    loop:
+      - /opt/guschat/storage/
+      - /opt/guschat/tmp/
+      - /opt/guschat/log/
 
   - name: copy systemd file
     ansible.builtin.copy:
