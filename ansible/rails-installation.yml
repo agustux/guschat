@@ -45,6 +45,7 @@
       clone: true
       dest: "/opt/guschat"
       repo: https://github.com/agustux/guschat.git
+      force: true
 
   - name: bundle install
     ansible.builtin.shell:
@@ -55,6 +56,12 @@
     ansible.builtin.shell:
       cmd: bin/rails db:migrate
       chdir: /opt/guschat
+
+  - name: add rails config.hosts
+    ansible.builtin.lineinfile:
+      path: "/opt/guschat/config/environments/development.rb"
+      insertafter: "^Rails.application.configure do"
+      line: "  config.hosts << \"{{ cn }}\""
 
   - name: make rails owner of writable directories
     ansible.builtin.file:
