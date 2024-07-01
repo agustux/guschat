@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  helper_method :next_week, :next_day, :prev_day, :prev_week
+  helper_method :next_week, :next_day, :prev_day, :prev_week, :index_date
 
   before_action :authenticate, :timezone
 
