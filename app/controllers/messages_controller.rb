@@ -29,9 +29,10 @@ class MessagesController < ApplicationController
 
   def create
     args = message_params
-    args['username'] = @username
+    u = User.find_by(username: @username)
     logger.info "creating message: #{args}"
     @message = Message.new(args)
+    @message.user = u
 
     if @message.save
       redirect_to root_path

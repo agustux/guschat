@@ -12,10 +12,10 @@
 
 <ul>
   <% @messages.reverse_each do |message, i| %>
-    <div style="background-color: #fafaff;">
+    <div style="background-color: #<%= message.user.color %>;">
       <p><%= message.body %></p>
       <small><pre>
-        <%= message.created_at.in_time_zone(@timezone) %> <%= message.username %>
+        <%= message.created_at.in_time_zone(@timezone) %> <%= message.user.username %>
      </pre></small>
    </div>
   <% end %>

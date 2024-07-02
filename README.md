@@ -68,8 +68,8 @@ rails new guschat
 cd guschat
 bin/rails generate controller Messages index --skip-routes
 bin/rails generate model Message body:text
-bin/rails generate migration AddUsernameToMessages username:string
-bin/rails generate model User username:string password_digest:string
+bin/rails generate model User username:string password_digest:string color:string
+bin/rails generate migration AddUserRefToMessages user:references
 bin/rails db:migrate
 
 subl config/routes.rb
