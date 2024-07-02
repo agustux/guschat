@@ -54,6 +54,7 @@ sudo -u rails /opt/guschat/bin/rails console
 
 user = User.new(username: "foo")
 user.password = 'bar'
+user.color = 'ff0000'
 user.save
 
 u = User.find_by(username: 'foo')
