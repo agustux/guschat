@@ -1,3 +1,4 @@
+# Set root's environment variable with "sudo su -" before running everything
 - hosts: all
   tasks:
 
