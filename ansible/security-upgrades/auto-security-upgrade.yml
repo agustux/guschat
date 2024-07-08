@@ -1,11 +1,11 @@
 - hosts: all
   tasks:
 
-  - name: apt update
-    ansible.builtin.command: sudo apt update
-
-  - name: apt upgrade
-    ansible.builtin.command: sudo apt upgrade -y
+  - name: update and upgrade
+    ansible.builtin.apt:
+      update_cache: true
+      upgrade: "dist"
+    tags: test
 
   - name: install unattended-upgrades
     ansible.builtin.apt:
