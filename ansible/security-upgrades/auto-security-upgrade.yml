@@ -24,10 +24,3 @@
     ansible.builtin.command:
       cmd: dpkg-reconfigure -f noninteractive unattended-upgrades
       creates: /etc/apt/apt.conf.d/20auto-upgrades
-
-  - name: ensure that updates run every day
-    ansible.builtin.blockinfile:
-      path: /etc/apt/apt.conf.d/20auto-upgrades
-      block: |
-        APT::Periodic::Update-Package-Lists "1";
-        APT::Periodic::Unattended-Upgrade "1";
