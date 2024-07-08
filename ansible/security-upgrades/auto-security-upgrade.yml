@@ -1,0 +1,26 @@
+# Set root's environment variable with "sudo su -" before running everything
+- hosts: all
+  tasks:
+
+  - name: update and upgrade
+    ansible.builtin.apt:
+      update_cache: true
+      upgrade: "dist"
+    tags: test
+
+  - name: install unattended-upgrades
+    ansible.builtin.apt:
+      name: unattended-upgrades
+      state: present
+
+  - name: configuring interactive unattended-upgrades
+    ansible.builtin.debconf:
+      name: unattended-upgrades
+      question: unattended-upgrades/enable_auto_updates
+      vtype: boolean
+      value: 'true'
+
+  - name: dpkg-reconfigure -f noninteractive unattended-upgrades
+    ansible.builtin.command:
+      cmd: dpkg-reconfigure -f noninteractive unattended-upgrades
+      creates: /etc/apt/apt.conf.d/20auto-upgrades
