@@ -31,37 +31,3 @@
       block: |
         APT::Periodic::Update-Package-Lists "1";
         APT::Periodic::Unattended-Upgrade "1";
-
-  - name: copy edited apt-daily timer file
-    ansible.builtin.copy:
-      src: apt-daily.timer
-      dest: /etc/systemd/system/apt-daily.timer
-      owner: root
-      group: root
-      mode: '0644'
-    tags: timer
-
-  - name: enable service apt-daily
-    ansible.builtin.systemd_service:
-      name: apt-daily.timer
-      enabled: true
-      daemon_reload: true
-      state: restarted
-    tags: timer
-
-  - name: copy edited apt-daily timer file
-    ansible.builtin.copy:
-      src: apt-daily-upgrade.timer
-      dest: /etc/systemd/system/apt-daily-upgrade.timer
-      owner: root
-      group: root
-      mode: '0644'
-    tags: timer
-
-  - name: enable service apt-daily
-    ansible.builtin.systemd_service:
-      name: apt-daily-upgrade.timer
-      enabled: true
-      daemon_reload: true
-      state: restarted
-    tags: timer
