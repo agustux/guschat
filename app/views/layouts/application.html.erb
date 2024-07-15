@@ -10,7 +10,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body data-controller="push" data-application-server-key="<%= ENV['WP_PUBLIC_KEY'] %>">
     <%= yield %>
   </body>
 </html>

@@ -2,6 +2,10 @@ source "https://rubygems.org"
 
 ruby "3.1.2"
 
+gem 'dotenv', groups: [:development, :test]
+
+gem 'web-push'
+
 gem 'bcrypt', '~> 3.1.7'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"

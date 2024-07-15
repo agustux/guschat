@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "mutationobserver-shim": "^0.3.7"
+  }
+}

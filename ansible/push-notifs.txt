@@ -1,0 +1,26 @@
+# added "gem 'web-push'" to gemfile
+# added "gem 'dotenv', groups: [:development, :test]" to gemfile
+bundle install
+
+# in irb console:
+require 'web-push'
+
+WebPush.generate_key
+WebPush.generate_key.public_key
+WebPush.generate_key.private_key
+# Create .env file in guschat/ and put the keys in there
+
+# left off checking if i should insert the <body> stuff from the tutorial into app/views/layouts/application.html.erb
+
+# to export the variables do "export $(cat web-push-keys.env)"
+
+# to test the push notification thingy 
+sudo apt install nodejs -y
+sudo apt install npm -y
+sudo npm install --global yarn
+# to install dependencies from shime.sh/til/testing-stimulus:
+yarn add --dev jest
+yarn add --dev babel-jest babel-preset-es2015
+yarn add --dev mutationobserver-shim
+
+# create guschat/test/javascript because it hasn't been made yet
