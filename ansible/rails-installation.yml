@@ -109,6 +109,13 @@
     tags:
       - nginx
 
+  - name: deploy nginx proxy-pass-nginx file
+    ansible.builtin.copy:
+      src: files/proxy-pass-nginx.conf
+      dest: /etc/nginx/
+    tags:
+      - nginx
+
   - name: restart nginx
     ansible.builtin.systemd_service:
       name: nginx
