@@ -61,7 +61,7 @@ class MessagesController < ApplicationController
 
     def index_date
       begin
-        index_params = params.permit(:date)
+        index_params = params.permit(:date, :format)
         if index_params[:date]
           d = Date.parse index_params[:date]
         else
