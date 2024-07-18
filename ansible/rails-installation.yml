@@ -46,6 +46,7 @@
       dest: "/opt/guschat"
       repo: https://github.com/agustux/guschat.git
       force: true
+      version: "xml_uri"
 
   - name: bundle install
     ansible.builtin.shell:
