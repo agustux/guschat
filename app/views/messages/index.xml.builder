@@ -9,6 +9,7 @@ xml.rss version: "2.0" do
       xml.item do
         xml.description message.body
         xml.pubDate message.created_at.to_s()
+        xml.link root_path
         xml.author message.user.username
       end
     end
