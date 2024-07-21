@@ -65,7 +65,7 @@ class MessagesController < ApplicationController
         if index_params[:date]
           d = Date.parse index_params[:date]
         else
-          d = Date.today
+          d = DateTime.now
         end
         d.in_time_zone(@timezone)
       rescue Date::Error => e
