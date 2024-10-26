@@ -20,7 +20,7 @@ mkdir /home/gus/.ssh
 nano /home/gus/.ssh/authorized_keys
 cp /home/gus/.ssh/authorized_keys /root/.ssh/
 # test:
-ssh gus@192.168.122.18
+ssh gus@192.168.122.219
 ```
 
 ## calling ansible
@@ -28,6 +28,6 @@ ssh gus@192.168.122.18
 # make sure you can connect with ssh-key and the user is sudoer
 cd ~/guschat/ansible
 source .python_venv/bin/activate
-.python_venv/bin/ansible-playbook rails-installation.yml -i root@192.168.122.207,
-.python_venv/bin/ansible-playbook rails-installation.yml -i root@192.168.122.207, --skip-tags apt
+.python_venv/bin/ansible-playbook security-upgrades/auto-security-upgrade.yml -i root@192.168.122.219,
+.python_venv/bin/ansible-playbook rails-installation.yml -i root@192.168.122.219, -e cn=192.168.122.219
 ```
