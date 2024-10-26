@@ -31,8 +31,9 @@ bin/rails db:migrate
 
 # Run BEFORE ANSIBLE to Create Self-Signed TLS Certificate
 ```
-# on the debian host
+# on the debian host as root
 
+apt install sudo -y
 sudo mkdir -p /etc/nginx/ssl-certs
 sudo openssl req -x509 -newkey rsa:4096 \
   -keyout /etc/nginx/ssl-certs/guschat.key \
