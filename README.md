@@ -53,11 +53,11 @@ bin/rails console
 # on debian:
 sudo -u rails /opt/guschat/bin/rails console
 
-user = User.new(username: "foo")
-user.password = 'bar'
-user.color = '#ff0000'
+# to create a user
+user = User.create(username: 'foo', password: 'bar', color: '#1b5e20')
 user.save
 
+# to update a user's color or password
 u = User.find_by(username: 'foo')
 u.password = 'foobar'
 u.save
