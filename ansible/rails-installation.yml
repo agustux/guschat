@@ -45,6 +45,7 @@
       clone: true
       dest: "/opt/guschat"
       repo: https://github.com/agustux/guschat.git
+      version: 692409b806d37729d6b7ed61d7285493812cb122
       force: true
 
   - name: bundle install
